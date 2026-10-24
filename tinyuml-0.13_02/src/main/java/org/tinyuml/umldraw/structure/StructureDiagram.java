@@ -153,6 +153,14 @@ implements NodeChangeListener, LabelSource, Diagram {
   }
 
   /**
+   * Returns the count of this diagram's elements grouped by category.
+   * @return the element count
+   */
+  public ElementCount getElementCount() {
+    return ElementCount.count(getChildren());
+  }
+
+  /**
    * {@inheritDoc}
    */
   public String getName() { return name; }

@@ -79,6 +79,7 @@ implements EditorStateListener, AppCommandListener, SelectionListener {
 
   private JTabbedPane tabbedPane;
   private JLabel coordLabel = new JLabel("    ");
+  private JLabel itemsLabel = new JLabel("    ");
   private JLabel memLabel = new JLabel("    ");
   private UmlModel umlModel;
   private DiagramEditor currentEditor;
@@ -213,6 +214,7 @@ implements EditorStateListener, AppCommandListener, SelectionListener {
                               label.getText());
       }
     });
+    updateItemCount();
   }
 
   /**
@@ -240,9 +242,23 @@ implements EditorStateListener, AppCommandListener, SelectionListener {
    */
   private void installStatusbar() {
     JPanel statusbar = new JPanel(new BorderLayout());
+    itemsLabel.setHorizontalAlignment(JLabel.CENTER);
     statusbar.add(coordLabel, BorderLayout.WEST);
+    statusbar.add(itemsLabel, BorderLayout.CENTER);
     statusbar.add(memLabel, BorderLayout.EAST);
     getContentPane().add(statusbar, BorderLayout.SOUTH);
+  }
+
+  /**
+   * Updates the element count shown in the status bar for the active diagram.
+   */
+  private void updateItemCount() {
+    if (currentEditor == null) {
+      itemsLabel.setText("    ");
+    } else {
+      itemsLabel.setText(currentEditor.getDiagram().getElementCount()
+        .toString());
+    }
   }
 
   /**
@@ -284,6 +300,7 @@ implements EditorStateListener, AppCommandListener, SelectionListener {
     // spring loading is implemented here
     staticToolbarManager.doClick("SELECT_MODE");
     updateMenuAndToolbars(editor);
+    updateItemCount();
   }
 
   /**
@@ -291,6 +308,7 @@ implements EditorStateListener, AppCommandListener, SelectionListener {
    */
   public void elementRemoved(DiagramEditor editor) {
     updateMenuAndToolbars(editor);
+    updateItemCount();
   }
 
   /**

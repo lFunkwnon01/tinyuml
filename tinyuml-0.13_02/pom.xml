@@ -6,6 +6,10 @@
   <packaging>jar</packaging>
   <version>0.13_02</version>
 
+  <properties>
+    <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+  </properties>
+
   <!-- dependencies section -->
   <dependencies>
     <!-- Testing-Frameworks -->
